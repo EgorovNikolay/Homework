@@ -42,8 +42,3 @@ def get_date(date: str) -> str:
         raise ValueError("В этом месяце только 30 дней")
     return f"{day}.{month}.{year}"
 
-
-print(get_date("2024-03-11"))
-print(get_date("2024-05-09"))
-print(get_date("2024-09-17"))
-print(get_date("2024-09-30"))
