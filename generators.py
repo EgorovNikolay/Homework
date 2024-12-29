@@ -1,4 +1,4 @@
-def filter_by_currency(transactions: list, currency: str):
+def filter_by_currency(transactions, currency):
     """Функция фильтрует транзакции по указанной валюте"""
     for transaction in transactions:
         if (
@@ -8,7 +8,7 @@ def filter_by_currency(transactions: list, currency: str):
             yield transaction
 
 
-def transaction_descriptions(transactions: list[dict]) -> str:
+def transaction_descriptions(transactions):
     """Функция выводит описание транзакции"""
     for transaction in transactions:
         result = transaction.get("description")
@@ -19,7 +19,7 @@ def transaction_descriptions(transactions: list[dict]) -> str:
         yield result
 
 
-def card_number_generator(start: int, end: int):
+def card_number_generator(start, end):
     """Генератор номеров банковских карт"""
     for number in range(start, end + 1):
         number_str = str(number)
