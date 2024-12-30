@@ -1,37 +1,42 @@
+import pytest
+
 from generators import (card_number_generator, filter_by_currency,
                         transaction_descriptions)
 
 
-def test_filter_by_currency(data_transactions):
-    expected = [
-        {
-            "id": 1,
-            "operationAmount": {
-                "amount": "100.00",
-                "currency": {"name": "USD", "code": "USD"},
+@pytest.mark.parametrize(
+    'currency, expected',
+    [
+        ("USD", [
+            {
+                "id": 1,
+                "operationAmount": {
+                    "amount": "100.00",
+                    "currency": {"name": "USD", "code": "USD"},
+                },
+                "description": "Перевод организации",
             },
-            "description": "Перевод организации",
-        },
-        {
-            "id": 3,
-            "operationAmount": {
-                "amount": "150.00",
-                "currency": {"name": "USD", "code": "USD"},
+            {
+                "id": 3,
+                "operationAmount": {
+                    "amount": "150.00",
+                    "currency": {"name": "USD", "code": "USD"},
+                },
+                "description": "Перевод с карты на карту",
             },
-            "description": "Перевод с карты на карту",
-        },
-        {
-            "id": 4,
-            "operationAmount": {
-                "amount": "300.00",
-                "currency": {"name": "USD", "code": "USD"},
+            {
+                "id": 4,
+                "operationAmount": {
+                    "amount": "300.00",
+                    "currency": {"name": "USD", "code": "USD"},
+                },
+                "description": "Перевод организации",
             },
-            "description": "Перевод организации",
-        },
+        ]),
     ]
-
-    result = list(filter_by_currency(data_transactions, "USD"))
-
+)
+def test_filter_by_currency(data_transactions, currency, expected):
+    result = list(filter_by_currency(data_transactions, currency))
     assert result == expected
 
 
@@ -47,14 +52,30 @@ def test_filter_by_currency_empty_list():
     assert result == []
 
 
-def test_transaction_descriptions(data_transactions):
-    expected = [
-        "Перевод организации",
-        "Перевод со счета на счет",
-        "Перевод с карты на карту",
-        "Перевод организации",
+@pytest.mark.parametrize(
+    "data_transactions, expected",
+    [
+        (
+                [
+                    {"id": 1, "operationAmount": {"amount": "100.00", "currency": {"name": "USD", "code": "USD"}},
+                     "description": "Перевод организации"},
+                    {"id": 2, "operationAmount": {"amount": "200.00", "currency": {"name": "USD", "code": "USD"}},
+                     "description": "Перевод со счета на счет"},
+                    {"id": 3, "operationAmount": {"amount": "150.00", "currency": {"name": "USD", "code": "USD"}},
+                     "description": "Перевод с карты на карту"},
+                    {"id": 4, "operationAmount": {"amount": "300.00", "currency": {"name": "USD", "code": "USD"}},
+                     "description": "Перевод организации"},
+                ],
+                [
+                    "Перевод организации",
+                    "Перевод со счета на счет",
+                    "Перевод с карты на карту",
+                    "Перевод организации",
+                ]
+        ),
     ]
-
+)
+def test_transaction_descriptions(data_transactions, expected):
     result = list(transaction_descriptions(data_transactions))
 
     assert result == expected
@@ -83,17 +104,20 @@ def test_transaction_descriptions_single_item():
     assert descriptions == ["Перевод организации"]
 
 
-def test_card_number_generator():
-    expected = [
-        "0000 0000 0000 0001",
-        "0000 0000 0000 0002",
-        "0000 0000 0000 0003",
-        "0000 0000 0000 0004",
-        "0000 0000 0000 0005",
+@pytest.mark.parametrize(
+    "start, end, expected",
+    [
+        (1, 5, [
+            "0000 0000 0000 0001",
+            "0000 0000 0000 0002",
+            "0000 0000 0000 0003",
+            "0000 0000 0000 0004",
+            "0000 0000 0000 0005",
+        ]),
     ]
-
-    card_numbers = list(card_number_generator(1, 5))
-
+)
+def test_card_number_generator(start, end, expected):
+    card_numbers = list(card_number_generator(start, end))
     assert card_numbers == expected
 
 
@@ -108,5 +132,4 @@ def test_card_number_generator_maximum():
 
     card_numbers = list(card_number_generator(9999999999999999, 9999999999999999))
 
-    # Сравниваем результат с ожидаемым
     assert card_numbers == expected
