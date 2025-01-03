@@ -41,4 +41,3 @@ def get_date(date: str) -> str:
     if int(month) in [4, 6, 9, 11] and int(day) > 30:
         raise ValueError("В этом месяце только 30 дней")
     return f"{day}.{month}.{year}"
-

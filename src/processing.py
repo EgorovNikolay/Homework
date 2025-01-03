@@ -25,4 +25,3 @@ def sort_by_date(data: List[Dict], sort: bool = True) -> List[Dict]:
         raise ValueError("Агрумент 'sort' должен быть булевым значением")
     sorted_list = sorted(data, key=lambda x: x["date"], reverse=sort)
     return sorted_list
-
