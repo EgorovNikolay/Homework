@@ -1,39 +1,45 @@
 import pytest
 
-from src.generators import (card_number_generator, filter_by_currency,
-                            transaction_descriptions)
+from src.generators import (
+    card_number_generator,
+    filter_by_currency,
+    transaction_descriptions,
+)
 
 
 @pytest.mark.parametrize(
-    'currency, expected',
+    "currency, expected",
     [
-        ("USD", [
-            {
-                "id": 1,
-                "operationAmount": {
-                    "amount": "100.00",
-                    "currency": {"name": "USD", "code": "USD"},
+        (
+            "USD",
+            [
+                {
+                    "id": 1,
+                    "operationAmount": {
+                        "amount": "100.00",
+                        "currency": {"name": "USD", "code": "USD"},
+                    },
+                    "description": "Перевод организации",
                 },
-                "description": "Перевод организации",
-            },
-            {
-                "id": 3,
-                "operationAmount": {
-                    "amount": "150.00",
-                    "currency": {"name": "USD", "code": "USD"},
+                {
+                    "id": 3,
+                    "operationAmount": {
+                        "amount": "150.00",
+                        "currency": {"name": "USD", "code": "USD"},
+                    },
+                    "description": "Перевод с карты на карту",
                 },
-                "description": "Перевод с карты на карту",
-            },
-            {
-                "id": 4,
-                "operationAmount": {
-                    "amount": "300.00",
-                    "currency": {"name": "USD", "code": "USD"},
+                {
+                    "id": 4,
+                    "operationAmount": {
+                        "amount": "300.00",
+                        "currency": {"name": "USD", "code": "USD"},
+                    },
+                    "description": "Перевод организации",
                 },
-                "description": "Перевод организации",
-            },
-        ]),
-    ]
+            ],
+        ),
+    ],
 )
 def test_filter_by_currency(data_transactions, currency, expected):
     result = list(filter_by_currency(data_transactions, currency))
@@ -56,24 +62,48 @@ def test_filter_by_currency_empty_list():
     "data_transactions, expected",
     [
         (
-                [
-                    {"id": 1, "operationAmount": {"amount": "100.00", "currency": {"name": "USD", "code": "USD"}},
-                     "description": "Перевод организации"},
-                    {"id": 2, "operationAmount": {"amount": "200.00", "currency": {"name": "USD", "code": "USD"}},
-                     "description": "Перевод со счета на счет"},
-                    {"id": 3, "operationAmount": {"amount": "150.00", "currency": {"name": "USD", "code": "USD"}},
-                     "description": "Перевод с карты на карту"},
-                    {"id": 4, "operationAmount": {"amount": "300.00", "currency": {"name": "USD", "code": "USD"}},
-                     "description": "Перевод организации"},
-                ],
-                [
-                    "Перевод организации",
-                    "Перевод со счета на счет",
-                    "Перевод с карты на карту",
-                    "Перевод организации",
-                ]
+            [
+                {
+                    "id": 1,
+                    "operationAmount": {
+                        "amount": "100.00",
+                        "currency": {"name": "USD", "code": "USD"},
+                    },
+                    "description": "Перевод организации",
+                },
+                {
+                    "id": 2,
+                    "operationAmount": {
+                        "amount": "200.00",
+                        "currency": {"name": "USD", "code": "USD"},
+                    },
+                    "description": "Перевод со счета на счет",
+                },
+                {
+                    "id": 3,
+                    "operationAmount": {
+                        "amount": "150.00",
+                        "currency": {"name": "USD", "code": "USD"},
+                    },
+                    "description": "Перевод с карты на карту",
+                },
+                {
+                    "id": 4,
+                    "operationAmount": {
+                        "amount": "300.00",
+                        "currency": {"name": "USD", "code": "USD"},
+                    },
+                    "description": "Перевод организации",
+                },
+            ],
+            [
+                "Перевод организации",
+                "Перевод со счета на счет",
+                "Перевод с карты на карту",
+                "Перевод организации",
+            ],
         ),
-    ]
+    ],
 )
 def test_transaction_descriptions(data_transactions, expected):
     result = list(transaction_descriptions(data_transactions))
@@ -107,14 +137,18 @@ def test_transaction_descriptions_single_item():
 @pytest.mark.parametrize(
     "start, end, expected",
     [
-        (1, 5, [
-            "0000 0000 0000 0001",
-            "0000 0000 0000 0002",
-            "0000 0000 0000 0003",
-            "0000 0000 0000 0004",
-            "0000 0000 0000 0005",
-        ]),
-    ]
+        (
+            1,
+            5,
+            [
+                "0000 0000 0000 0001",
+                "0000 0000 0000 0002",
+                "0000 0000 0000 0003",
+                "0000 0000 0000 0004",
+                "0000 0000 0000 0005",
+            ],
+        ),
+    ],
 )
 def test_card_number_generator(start, end, expected):
     card_numbers = list(card_number_generator(start, end))
