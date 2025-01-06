@@ -1,4 +1,3 @@
-import pytest
 from src.decorators import my_function
 
 
@@ -45,7 +44,8 @@ def test_console_invalid_value_kwargs(capsys):
     captured = capsys.readouterr()
     assert result is None
     assert "Начало выполнения функции my_function с аргументами (4,) и {'y': '3'}" in captured.out
-    assert "Функция: my_function Ошибка: Аргументы должны быть целым или вещественным числом. Введенные аргументы: (4,), {'y': '3'}" in captured.out
+    assert ("Функция: my_function Ошибка: Аргументы должны быть целым или вещественным числом. "
+            "Введенные аргументы: (4,), {'y': '3'}") in captured.out
 
 
 def test_console_empty_kwargs(capsys):
@@ -53,5 +53,5 @@ def test_console_empty_kwargs(capsys):
     captured = capsys.readouterr()
     assert result is None
     assert "Начало выполнения функции my_function с аргументами () и {'y': '3'}" in captured.out
-    assert "Функция: my_function Ошибка: Аргументы должны быть целым или вещественным числом. Введенные аргументы: (), {'y': '3'}" in captured.out
-
+    assert ("Функция: my_function Ошибка: Аргументы должны быть целым или вещественным числом. "
+            "Введенные аргументы: (), {'y': '3'}") in captured.out
