@@ -46,3 +46,13 @@ def data_transactions():
             "description": "Перевод организации",
         },
     ]
+
+
+@pytest.fixture
+def transaction_rub():
+    return {"operationAmount": {"amount": "100.0", "currency": {"code": "RUB"}}}
+
+
+@pytest.fixture
+def invalid_transaction():
+    return {"operationAmount": {"amount": None, "currency": {"code": None}}}
