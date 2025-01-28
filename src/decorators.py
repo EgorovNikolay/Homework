@@ -7,10 +7,14 @@ def log(filename=None):
                     print(log_message)
                 for arg in args:
                     if not isinstance(arg, (int, float)):
-                        raise ValueError("Аргументы должны быть целым или вещественным числом")
+                        raise ValueError(
+                            "Аргументы должны быть целым или вещественным числом"
+                        )
                 for key, value in kwargs.items():
                     if not isinstance(value, (int, float)):
-                        raise ValueError("Аргументы должны быть целым или вещественным числом")
+                        raise ValueError(
+                            "Аргументы должны быть целым или вещественным числом"
+                        )
                 result = func(*args, **kwargs)
                 result_message = f"Результат работы функции {result}\n"
                 end_message = f"Конец выполнения функции {func.__name__} с аргументами {args} и {kwargs}\n"
@@ -34,7 +38,9 @@ def log(filename=None):
                         file.write(error_message)
                 else:
                     print(error_message)
+
         return inner
+
     return wrapper
 
 
@@ -44,4 +50,4 @@ def my_function(x, y):
     return x + y
 
 
-my_function('2', 2)
+my_function("2", 2)
