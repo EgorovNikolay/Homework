@@ -43,3 +43,4 @@ def test_get_mask_account_length():
 def test_get_mask_account_isdigit():
     result = get_mask_account("77aj472-AKj88-41Gh91")
     assert result == ''
+

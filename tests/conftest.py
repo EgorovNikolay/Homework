@@ -1,3 +1,4 @@
+import pandas as pd
 import pytest
 
 
@@ -56,3 +57,23 @@ def transaction_rub():
 @pytest.fixture
 def invalid_transaction():
     return {"operationAmount": {"amount": None, "currency": {"code": None}}}
+
+
+@pytest.fixture
+def csv_test_data():
+    return pd.DataFrame(
+        [
+            {"id": 1, "amount": 100, "date": "2025-01-01"},
+            {"id": 2, "amount": 200, "date": "2025-01-02"},
+        ]
+    )
+
+
+@pytest.fixture
+def excel_test_data():
+    return pd.DataFrame(
+        [
+            {"id": 1, "amount": 100, "date": "2025-01-01"},
+            {"id": 2, "amount": 200, "date": "2025-01-02"},
+        ]
+    )
