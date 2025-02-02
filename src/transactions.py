@@ -15,12 +15,14 @@ def search_transactions(transactions: List[Dict], search_str: str) -> List[Dict]
     return found_transactions
 
 
-def count_transactions(transactions: List[Dict], categories: List[str]) -> Dict[str, int]:
+def count_transactions(
+    transactions: List[Dict], categories: List[str]
+) -> Dict[str, int]:
     """Функция считает колличество операций в каждой категорий"""
     count_category = Counter()
 
     for transaction in transactions:
-        descriptions = transaction.get('description', '').lower()
+        descriptions = transaction.get("description", "").lower()
         for category in categories:
             if category.lower() in descriptions:
                 count_category[category] += 1
