@@ -16,11 +16,13 @@ def test_get_mask_card_number(card_number, expected):
 
 
 def test_get_mask_card_number_length():
-    assert get_mask_card_number("12345") == ""
+    result = get_mask_card_number("12345")
+    assert result == ""
 
 
 def test_get_mask_card_number_is_digit():
-    assert get_mask_card_number("AFs5-6ak1-9fha-1") == ""
+    result = get_mask_card_number("AFs5-6ak1-9fha-1")
+    assert result == ""
 
 
 @pytest.mark.parametrize(
@@ -36,8 +38,10 @@ def test_get_mask_account(account_number, expected):
 
 
 def test_get_mask_account_length():
-    assert get_mask_account("123456789") == ""
+    result = get_mask_account("123456789")
+    assert result == ""
 
 
 def test_get_mask_account_isdigit():
-    assert get_mask_account("77aj472-AKj88-41Gh91") == ""
+    result = get_mask_account("77aj472-AKj88-41Gh91")
+    assert result == ""

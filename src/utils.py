@@ -3,9 +3,10 @@ import logging
 import os
 from typing import Dict, List
 
+import pandas as pd
+
 base_path = os.path.dirname(__file__)
 full_path = os.path.join(base_path, "..", "logs", "utils.log")
-
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -36,3 +37,21 @@ def read_json_file(path_to_file: str) -> List[Dict]:
 test_data_invalid = read_json_file("wrong_path")
 file_path = os.path.join("..", "data", "operations.json")
 test_data_correct = read_json_file(file_path)
+
+
+def load_json(filename: str) -> List[Dict]:
+    """Функция читает json файл по указанному пути и возвращает список словарей"""
+    with open(filename, "r") as file:
+        return json.load(file)
+
+
+def load_csv(filename: str) -> List[Dict]:
+    """Функция читает csv файл по указанному пути и возвращает список словарей"""
+    df = pd.read_csv(filename)
+    return df.to_dict(orient="records")
+
+
+def load_xlsx(filename: str) -> List[Dict]:
+    """Функция читает excel файл по указанному пути и возвращает список словарей"""
+    df = pd.read_excel(filename)
+    return df.to_dict(orient="records")

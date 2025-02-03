@@ -28,7 +28,7 @@ def get_mask_card_number(number_card: str) -> str:
         return f"{number_card[:4]} {number_card[4:6]}** **** {number_card[-4:]}"
     except ValueError:
         logger.error("Ошибка маскировки номера карты")
-        return ''
+        return ""
 
 
 def get_mask_account(account_number: str) -> str:
@@ -45,7 +45,7 @@ def get_mask_account(account_number: str) -> str:
         return f"**{account_number[-4:]}"
     except ValueError:
         logger.error("Ошибка маскировки номера счета")
-        return ''
+        return ""
 
 
 correct_number_card = get_mask_card_number("1234123412341234")
